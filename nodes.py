@@ -113,6 +113,14 @@ class RunningHub_ZImageI2L_LoraGenerator:
         self.lora_name = f"zimage_i2l_lora_{str(uuid.uuid4())}.safetensors"
 
     def generate(self, pipeline, training_images, **kwargs):
+
+        loaded_models = mm.current_loaded_models
+        print(f'[kiki] loaded_models before generate:', len(loaded_models))
+        if len(loaded_models) > 0:
+            mm.unload_all_models()
+            gc.collect()
+            torch.cuda.empty_cache()
+
         training_images = [self.tensor_2_pil(image) for image in training_images]
         training_images = [image.convert("RGB") for image in training_images]
         with torch.no_grad():
