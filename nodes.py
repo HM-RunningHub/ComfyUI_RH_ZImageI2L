@@ -11,6 +11,9 @@ import torch
 from PIL import Image
 import numpy as np
 
+import gc
+from comfy import model_management as mm
+
 class AnyComboList(list):
     """
     A JSON-serializable list subtype used as a ComfyUI socket type.
@@ -59,6 +62,14 @@ class RunningHub_ZImageI2L_Loader:
         # self.processor_path = os.path.join(folder_paths.models_dir, 'DiffSynth-Studio', 'Qwen-Image-Edit')
 
     def load(self):
+        
+        loaded_models = mm.current_loaded_models
+        print(f'[kiki] loaded_models:', len(loaded_models))
+        if len(loaded_models) > 0:
+            mm.unload_all_models()
+            gc.collect()
+            torch.cuda.empty_cache()
+
         pipe = ZImagePipeline.from_pretrained(
             torch_dtype=torch.bfloat16,
             device="cuda",
