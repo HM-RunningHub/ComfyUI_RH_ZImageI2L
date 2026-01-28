@@ -27,33 +27,59 @@ pip install -r requirements.txt
 
 ## 📦 Model Downloads
 
-Models will be automatically downloaded from ModelScope/HuggingFace on first run:
+Models will be automatically downloaded from ModelScope on first run and cached locally.
 
-| Model | Description |
-|-------|-------------|
-| [Tongyi-MAI/Z-Image](https://modelscope.cn/models/Tongyi-MAI/Z-Image) | Base transformer |
-| [Tongyi-MAI/Z-Image-Turbo](https://modelscope.cn/models/Tongyi-MAI/Z-Image-Turbo) | Text encoder & VAE |
-| [DiffSynth-Studio/General-Image-Encoders](https://modelscope.cn/models/DiffSynth-Studio/General-Image-Encoders) | Image encoders (SigLIP2, DINOv3) |
-| [DiffSynth-Studio/Z-Image-i2L](https://modelscope.cn/models/DiffSynth-Studio/Z-Image-i2L) | Image to LoRA model |
+### Required Models
 
-### Model Installation Path
+| Model | Description | Files |
+|-------|-------------|-------|
+| [Tongyi-MAI/Z-Image](https://modelscope.cn/models/Tongyi-MAI/Z-Image) | Base transformer | `transformer/*.safetensors` |
+| [Tongyi-MAI/Z-Image-Turbo](https://modelscope.cn/models/Tongyi-MAI/Z-Image-Turbo) | Text encoder, VAE & Tokenizer | `text_encoder/*.safetensors`, `vae/`, `tokenizer/` |
+| [DiffSynth-Studio/General-Image-Encoders](https://modelscope.cn/models/DiffSynth-Studio/General-Image-Encoders) | Image encoders | `SigLIP2-G384/`, `DINOv3-7B/` |
+| [DiffSynth-Studio/Z-Image-i2L](https://modelscope.cn/models/DiffSynth-Studio/Z-Image-i2L) | Image to LoRA model | `model.safetensors` |
 
-Models are cached in the HuggingFace/ModelScope default cache directory:
+### Model Cache Path
 
-| OS | Default Path |
-|----|--------------|
-| Linux | `~/.cache/huggingface/hub/` |
-| Windows | `C:\Users\<username>\.cache\huggingface\hub\` |
-| macOS | `~/.cache/huggingface/hub/` |
+Models are automatically downloaded and cached in the **ModelScope cache directory**:
 
-You can customize the cache directory by setting environment variables:
+| OS | Default Cache Path |
+|----|-------------------|
+| Linux | `~/.cache/modelscope/hub/` |
+| Windows | `C:\Users\<username>\.cache\modelscope\hub\` |
+| macOS | `~/.cache/modelscope/hub/` |
+
+The directory structure after download:
+
+```
+~/.cache/modelscope/hub/
+├── Tongyi-MAI/
+│   ├── Z-Image/
+│   │   └── transformer/*.safetensors
+│   └── Z-Image-Turbo/
+│       ├── text_encoder/*.safetensors
+│       ├── vae/diffusion_pytorch_model.safetensors
+│       └── tokenizer/
+└── DiffSynth-Studio/
+    ├── General-Image-Encoders/
+    │   ├── SigLIP2-G384/model.safetensors
+    │   └── DINOv3-7B/model.safetensors
+    └── Z-Image-i2L/
+        └── model.safetensors
+```
+
+### Custom Cache Directory
+
+You can customize the cache directory by setting the `MODELSCOPE_CACHE` environment variable:
 
 ```bash
-# HuggingFace cache
-export HF_HOME=/path/to/your/cache
-
-# or ModelScope cache
+# Linux/macOS
 export MODELSCOPE_CACHE=/path/to/your/cache
+
+# Windows (PowerShell)
+$env:MODELSCOPE_CACHE = "D:\models\modelscope"
+
+# Windows (CMD)
+set MODELSCOPE_CACHE=D:\models\modelscope
 ```
 
 ## 🚀 Usage
