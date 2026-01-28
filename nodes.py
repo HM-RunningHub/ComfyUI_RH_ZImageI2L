@@ -67,7 +67,7 @@ class RunningHub_ZImageI2L_Loader:
     def load(self):
         
         loaded_models = mm.current_loaded_models
-        print(f'[kiki] loaded_models:', len(loaded_models))
+        print(f'[ZImageI2L] Unloading {len(loaded_models)} models for pipeline loading')
         if len(loaded_models) > 0:
             mm.unload_all_models()
             gc.collect()
@@ -118,7 +118,7 @@ class RunningHub_ZImageI2L_LoraGenerator:
     def generate(self, pipeline, training_images, **kwargs):
 
         loaded_models = mm.current_loaded_models
-        print(f'[kiki] loaded_models before generate:', len(loaded_models))
+        print(f'[ZImageI2L] Unloading {len(loaded_models)} models for LoRA generation')
         if len(loaded_models) > 0:
             mm.unload_all_models()
             gc.collect()

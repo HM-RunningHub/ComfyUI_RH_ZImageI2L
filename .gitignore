@@ -1,0 +1,34 @@
+# Internal config
+rh_config.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large model files
+*.pth
+*.ckpt
+*.safetensors
+models/
+
+# Logs
+*.log

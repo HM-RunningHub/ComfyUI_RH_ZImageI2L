@@ -1,0 +1,9 @@
+# Core dependencies
+torch>=2.0.0
+safetensors
+Pillow
+numpy
+
+# DiffSynth-Studio (includes Z-Image pipeline)
+# Install from: https://github.com/modelscope/DiffSynth-Studio
+diffsynth
